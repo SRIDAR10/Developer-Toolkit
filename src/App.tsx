@@ -64,11 +64,10 @@ const AppContent: React.FC = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-1 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
-                    activeTab === tab.id
-                      ? 'border-blue-600 text-blue-600 dark:text-blue-400'
-                      : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
-                  }`}
+                  className={`flex items-center gap-2 px-1 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${activeTab === tab.id
+                    ? 'border-blue-600 text-blue-600 dark:text-blue-400'
+                    : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
+                    }`}
                 >
                   <Icon size={16} />
                   {tab.label}
@@ -83,9 +82,8 @@ const AppContent: React.FC = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <ActiveComponent />
       </main>
-
       {/* Footer */}
-      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
+      {/* <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center text-gray-500 dark:text-gray-400 text-sm">
             <p className="mb-2">
@@ -96,7 +94,7 @@ const AppContent: React.FC = () => {
             </p>
           </div>
         </div>
-      </footer>
+      </footer>  */}
     </div>
   );
 };
