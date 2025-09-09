@@ -92,7 +92,7 @@ html.dark .mermaid-container {
   height: auto;
 }
 
-/* ✅ Force all text inside Mermaid diagrams to inherit container color */
+/*  Force all text inside Mermaid diagrams to inherit container color */
 .mermaid-container svg text,
 .mermaid-container svg tspan {
   fill: #111827 !important; /* Tailwind gray-900 for light mode */
@@ -109,6 +109,23 @@ html.dark .mermaid-container svg tspan {
 html.dark .mermaid-container,
 .mermaid-container {
   transition: color 0.3s ease-in-out;
+}
+
+/* Mermaid diagram visibility fix for light/dark mode */
+.mermaid-container svg,
+.mermaid-container text,
+.mermaid-container .label,
+.mermaid-container .node text {
+  fill: #111827 !important;
+  color: #111827 !important;
+  font-family: inherit !important;
+}
+.dark .mermaid-container svg,
+.dark .mermaid-container text,
+.dark .mermaid-container .label,
+.dark .mermaid-container .node text {
+  fill: #f9fafb !important;
+  color: #f9fafb !important;
 }
 
 /* ----------------------------------------

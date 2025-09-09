@@ -10,7 +10,7 @@ import {
   RendererBlockquoteParams,
 } from "./markedTypes";
 
-// ✅ Mermaid Initialization
+//  Mermaid Initialization
 if (typeof window !== "undefined") {
   mermaid.initialize({
     startOnLoad: false,
@@ -33,7 +33,7 @@ if (typeof window !== "undefined") {
     },
   });
 
-  // ✅ Listen to dark mode changes and re-init Mermaid theme
+  //  Listen to dark mode changes and re-init Mermaid theme
   window
     .matchMedia("(prefers-color-scheme: dark)")
     .addEventListener("change", () => {
@@ -61,13 +61,13 @@ if (typeof window !== "undefined") {
     });
 }
 
-// ✅ Configure marked with GitHub Flavored Markdown
+//  Configure marked with GitHub Flavored Markdown
 marked.setOptions({
   gfm: true,
   breaks: true,
 });
 
-// ✅ Custom renderer
+//  Custom renderer
 const renderer = new marked.Renderer();
 
 // --- Code Block Renderer (Mermaid + Syntax Highlighting) ---
@@ -156,7 +156,7 @@ renderer.blockquote = function ({ tokens }: RendererBlockquoteParams): string {
 marked.use({ renderer });
 
 /**
- * ✅ Renders markdown to HTML with syntax highlighting + Mermaid v10 support
+ *  Renders markdown to HTML with syntax highlighting + Mermaid v10 support
  */
 export const renderMarkdown = async (markdown: string): Promise<string> => {
   try {
@@ -167,13 +167,14 @@ export const renderMarkdown = async (markdown: string): Promise<string> => {
 
     // --- Process Mermaid Diagrams ---
     const mermaidRegex =
-      /<div class="mermaid-diagram" data-mermaid-id="([^"]+)" data-mermaid-code="([^"]+)"><\/div>/g;
+      /<div class="mermaid-diagram[^"]*" data-mermaid-id="([^"]+)" data-mermaid-code="([^"]+)">[\s\S]*?<\/div>/g;
 
     const matches: { match: string; id: string; code: string }[] = [];
     let match: RegExpExecArray | null;
 
     while ((match = mermaidRegex.exec(html)) !== null) {
       const [fullMatch, id, encodedCode] = match;
+      // Ensure code is decoded and not empty
       const code = decodeURIComponent(encodedCode);
       matches.push({ match: fullMatch, id, code });
     }
@@ -182,16 +183,25 @@ export const renderMarkdown = async (markdown: string): Promise<string> => {
       const renderedDiagrams = await Promise.all(
         matches.map(async (m) => {
           try {
-            // ✅ Use new async Mermaid API (v10+)
+            // Debug: log the code being rendered
+            console.log("Mermaid code:", m.code);
+            if (!m.code.trim()) {
+              return `<div class="mermaid-error p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded">
+                <p class="text-yellow-700 dark:text-yellow-300 font-medium">Mermaid Diagram Warning</p>
+                <pre class="text-sm text-yellow-600 dark:text-yellow-400 mt-2">Diagram code is empty.</pre>
+              </div>`;
+            }
             const { svg } = await mermaid.render(m.id, m.code);
+            // Debug: log the SVG output
+            console.log("Mermaid SVG output:", svg);
             return `<div class="mermaid-container my-4">${svg}</div>`;
           } catch (err) {
-            console.error("Mermaid render error:", err);
             return `<div class="mermaid-error p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded">
               <p class="text-red-700 dark:text-red-300 font-medium">Mermaid Diagram Error</p>
               <pre class="text-sm text-red-600 dark:text-red-400 mt-2">${
                 err instanceof Error ? err.message : "Failed to render diagram"
               }</pre>
+              <pre class="text-xs text-gray-500 mt-2">${m.code}</pre>
             </div>`;
           }
         })
@@ -202,7 +212,7 @@ export const renderMarkdown = async (markdown: string): Promise<string> => {
       });
     }
 
-    // ✅ Sanitize final HTML to prevent XSS
+    //  Sanitize final HTML to prevent XSS
     return DOMPurify.sanitize(html, {
       ADD_TAGS: [
         "svg",
@@ -260,7 +270,7 @@ export const renderMarkdown = async (markdown: string): Promise<string> => {
 };
 
 /**
- * ✅ Extract plain text from markdown
+ *  Extract plain text from markdown
  */
 export const extractPlainText = (markdown: string): string => {
   try {
@@ -286,7 +296,7 @@ export const extractPlainText = (markdown: string): string => {
 };
 
 /**
- * ✅ Count words in markdown
+ *  Count words in markdown
  */
 export const countWords = (markdown: string): number => {
   const plainText = extractPlainText(markdown);
@@ -294,7 +304,7 @@ export const countWords = (markdown: string): number => {
 };
 
 /**
- * ✅ Estimate reading time
+ *  Estimate reading time
  */
 export const estimateReadingTime = (
   markdown: string,
