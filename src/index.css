@@ -2,11 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Highlight.js theme overrides for dark mode */
+/* ----------------------------------------
+   Syntax Highlighting (highlight.js)
+---------------------------------------- */
 @media (prefers-color-scheme: dark) {
   .hljs {
-    background: #1f2937 !important;
-    color: #f9fafb !important;
+    background: #1f2937 !important; /* Tailwind gray-800 */
+    color: #f9fafb !important; /* Tailwind gray-50 */
   }
 }
 
@@ -15,20 +17,23 @@
   color: #f9fafb !important;
 }
 
-/* Prose styling for markdown preview */
+/* ----------------------------------------
+   Markdown Prose Styling
+---------------------------------------- */
 .prose {
   max-width: none;
 }
 
+/* Code blocks inside markdown */
 .prose pre {
-  background-color: #f6f8fa;
+  background-color: #f6f8fa; /* GitHub-like light gray */
   border-radius: 6px;
   padding: 1rem;
   overflow-x: auto;
 }
 
 .dark .prose pre {
-  background-color: #1f2937;
+  background-color: #1f2937; /* Tailwind gray-800 for dark mode */
 }
 
 .prose code {
@@ -39,10 +44,12 @@
 }
 
 .dark .prose code {
-  background-color: #374151;
+  background-color: #374151; /* Tailwind gray-700 */
 }
 
-/* Task list styling */
+/* ----------------------------------------
+   Task List Styling
+---------------------------------------- */
 .prose .task-list-item {
   list-style: none;
   margin-left: 0;
@@ -52,26 +59,9 @@
   margin-right: 0.5rem;
 }
 
-/* Mermaid diagram container */
-.mermaid-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem 0;
-}
-
-.mermaid-container svg {
-  max-width: 100%;
-  height: auto;
-}
-
-/* JWT token display improvements */
-.jwt-section pre {
-  white-space: pre-wrap;
-  word-break: break-all;
-}
-
-/* Responsive table wrapper */
+/* ----------------------------------------
+   Table Wrapper (Responsive)
+---------------------------------------- */
 .table-wrapper {
   overflow-x: auto;
   margin: 1rem 0;
@@ -80,4 +70,51 @@
 .table-wrapper table {
   min-width: 100%;
   border-collapse: collapse;
+}
+
+/* ----------------------------------------
+   Mermaid Diagram Styling
+---------------------------------------- */
+.mermaid-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+  color: #111827; /* Set currentColor for light mode (Tailwind gray-900) */
+}
+
+html.dark .mermaid-container {
+  color: #f9fafb; /* Set currentColor for dark mode (Tailwind gray-50) */
+}
+
+.mermaid-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ✅ Force all text inside Mermaid diagrams to inherit container color */
+.mermaid-container svg text,
+.mermaid-container svg tspan {
+  fill: #111827 !important; /* Tailwind gray-900 for light mode */
+  stroke: none !important;
+  fill-opacity: 1 !important;
+}
+
+html.dark .mermaid-container svg text,
+html.dark .mermaid-container svg tspan {
+  fill: #f9fafb !important; /* Tailwind gray-50 for dark mode */
+}
+
+/* Optional: Smooth transitions when switching light/dark mode */
+html.dark .mermaid-container,
+.mermaid-container {
+  transition: color 0.3s ease-in-out;
+}
+
+/* ----------------------------------------
+   JWT Token Display Improvements
+---------------------------------------- */
+.jwt-section pre {
+  white-space: pre-wrap;
+  word-break: break-all;
 }

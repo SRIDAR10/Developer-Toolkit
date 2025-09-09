@@ -44,7 +44,7 @@ graph TD
 
 > **Note**: This editor supports real-time preview and export functionality.
 `);
-  
+
   const [viewMode, setViewMode] = useState<'split' | 'edit' | 'preview'>('split');
   const [renderedHtml, setRenderedHtml] = useState('');
   const [copySuccess, setCopySuccess] = useState<string>('');
@@ -164,8 +164,8 @@ ${renderedHtml}
           </button>
         </div>
       </div>
-      <div 
-        className="flex-1 p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 overflow-auto prose prose-sm dark:prose-invert max-w-none"
+      <div
+        className="flex-1 p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 overflow-auto prose prose-sm dark:prose-invert max-w-none text-gray-900 dark:text-white"
         dangerouslySetInnerHTML={{ __html: renderedHtml }}
         aria-label="Markdown Preview"
       />
@@ -180,16 +180,15 @@ ${renderedHtml}
             <FileText className="w-5 h-5" />
             Markdown Editor
           </h2>
-          
+
           {/* View Mode Controls */}
           <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
             <button
               onClick={() => setViewMode('edit')}
-              className={`flex items-center gap-1 px-3 py-1 text-sm rounded transition-colors ${
-                viewMode === 'edit'
-                  ? 'bg-white dark:bg-gray-600 text-gray-800 dark:text-gray-200 shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
-              }`}
+              className={`flex items-center gap-1 px-3 py-1 text-sm rounded transition-colors ${viewMode === 'edit'
+                ? 'bg-white dark:bg-gray-600 text-gray-800 dark:text-gray-200 shadow-sm'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+                }`}
               aria-label="Edit Mode"
             >
               <Edit size={14} />
@@ -197,11 +196,10 @@ ${renderedHtml}
             </button>
             <button
               onClick={() => setViewMode('split')}
-              className={`flex items-center gap-1 px-3 py-1 text-sm rounded transition-colors ${
-                viewMode === 'split'
-                  ? 'bg-white dark:bg-gray-600 text-gray-800 dark:text-gray-200 shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
-              }`}
+              className={`flex items-center gap-1 px-3 py-1 text-sm rounded transition-colors ${viewMode === 'split'
+                ? 'bg-white dark:bg-gray-600 text-gray-800 dark:text-gray-200 shadow-sm'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+                }`}
               aria-label="Split Mode"
             >
               <Split size={14} />
@@ -209,11 +207,10 @@ ${renderedHtml}
             </button>
             <button
               onClick={() => setViewMode('preview')}
-              className={`flex items-center gap-1 px-3 py-1 text-sm rounded transition-colors ${
-                viewMode === 'preview'
-                  ? 'bg-white dark:bg-gray-600 text-gray-800 dark:text-gray-200 shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
-              }`}
+              className={`flex items-center gap-1 px-3 py-1 text-sm rounded transition-colors ${viewMode === 'preview'
+                ? 'bg-white dark:bg-gray-600 text-gray-800 dark:text-gray-200 shadow-sm'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+                }`}
               aria-label="Preview Mode"
             >
               <Eye size={14} />
@@ -221,21 +218,25 @@ ${renderedHtml}
             </button>
           </div>
 
-          <FileUpload 
-            onFileSelect={handleFileSelect} 
-            accept=".md,.txt" 
-            className="ml-auto" 
+          <FileUpload
+            onFileSelect={handleFileSelect}
+            accept=".md,.txt"
+            className="ml-auto"
           />
         </div>
 
         {/* Editor/Preview Layout */}
         <div className="h-96 lg:h-[600px]">
-          {viewMode === 'edit' && renderEditor()}
-          {viewMode === 'preview' && renderPreview()}
+          {viewMode === 'edit' && (
+            <div className="h-full overflow-auto">{renderEditor()}</div>
+          )}
+          {viewMode === 'preview' && (
+            <div className="h-full overflow-auto">{renderPreview()}</div>
+          )}
           {viewMode === 'split' && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full">
-              {renderEditor()}
-              {renderPreview()}
+              <div className="h-full overflow-auto">{renderEditor()}</div>
+              <div className="h-full overflow-auto">{renderPreview()}</div>
             </div>
           )}
         </div>
@@ -243,7 +244,7 @@ ${renderedHtml}
         {/* Help Text */}
         <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
           <p className="text-blue-800 dark:text-blue-200 text-sm">
-            <strong>Tip:</strong> This editor supports GitHub Flavored Markdown including tables, task lists, 
+            <strong>Tip:</strong> This editor supports GitHub Flavored Markdown including tables, task lists,
             code blocks with syntax highlighting, and Mermaid diagrams. Use <code>```mermaid</code> to create diagrams.
           </p>
         </div>
