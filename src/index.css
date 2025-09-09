@@ -1,3 +1,83 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Highlight.js theme overrides for dark mode */
+@media (prefers-color-scheme: dark) {
+  .hljs {
+    background: #1f2937 !important;
+    color: #f9fafb !important;
+  }
+}
+
+.dark .hljs {
+  background: #1f2937 !important;
+  color: #f9fafb !important;
+}
+
+/* Prose styling for markdown preview */
+.prose {
+  max-width: none;
+}
+
+.prose pre {
+  background-color: #f6f8fa;
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.dark .prose pre {
+  background-color: #1f2937;
+}
+
+.prose code {
+  background-color: #f6f8fa;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 85%;
+}
+
+.dark .prose code {
+  background-color: #374151;
+}
+
+/* Task list styling */
+.prose .task-list-item {
+  list-style: none;
+  margin-left: 0;
+}
+
+.prose .task-list-item input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+/* Mermaid diagram container */
+.mermaid-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.mermaid-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* JWT token display improvements */
+.jwt-section pre {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Responsive table wrapper */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.table-wrapper table {
+  min-width: 100%;
+  border-collapse: collapse;
+}

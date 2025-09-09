@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import { Moon, Sun, FileText, Eye, GitCompare, Code } from 'lucide-react';
+import { Moon, Sun, FileText, Eye, GitCompare, Code, Shield, Edit } from 'lucide-react';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { JsonFormatter } from './components/JsonFormatter';
 import { JsonViewer } from './components/JsonViewer';
 import { JsonDiffChecker } from './components/JsonDiffChecker';
 import { JsonParser } from './components/JsonParser';
+import { JwtDecoder } from './components/JwtDecoder';
+import { MarkdownEditor } from './components/MarkdownEditor';
 
 const tabs = [
   { id: 'formatter', label: 'Formatter', icon: FileText, component: JsonFormatter },
   { id: 'viewer', label: 'Viewer', icon: Eye, component: JsonViewer },
   { id: 'parser', label: 'Parser', icon: Code, component: JsonParser },
-  { id: 'diff', label: 'Diff Checker', icon: GitCompare, component: JsonDiffChecker }
+  { id: 'diff', label: 'Diff Checker', icon: GitCompare, component: JsonDiffChecker },
+  { id: 'jwt', label: 'JWT Decoder', icon: Shield, component: JwtDecoder },
+  { id: 'markdown', label: 'Markdown Editor', icon: Edit, component: MarkdownEditor }
 ];
 
 const AppContent: React.FC = () => {
@@ -31,10 +35,10 @@ const AppContent: React.FC = () => {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-800 dark:text-gray-200">
-                  JSON Toolkit
+                  Developer Toolkit
                 </h1>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Format, View, Parse, and Compare JSON data
+                  JSON Tools, JWT Decoder, and Markdown Editor
                 </p>
               </div>
             </div>
@@ -82,19 +86,6 @@ const AppContent: React.FC = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <ActiveComponent />
       </main>
-      {/* Footer */}
-      {/* <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center text-gray-500 dark:text-gray-400 text-sm">
-            <p className="mb-2">
-              A comprehensive client-side JSON toolkit for developers
-            </p>
-            <p>
-              Built with React, TypeScript, and Tailwind CSS • All processing happens in your browser
-            </p>
-          </div>
-        </div>
-      </footer>  */}
     </div>
   );
 };
